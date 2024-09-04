@@ -1,0 +1,50 @@
+USE intranet_jfn;
+
+CREATE TABLE `matricula` (
+  `matricula` int(11) NOT NULL,
+  `nome_aluno` varchar(200) NOT NULL,
+  `data_nascimento` date NOT NULL,
+  `cidade_nascimento` varchar(150) NOT NULL,
+  `mae` varchar(200) NOT NULL,
+  `pai` varchar(200) DEFAULT NULL,
+  `cor` varchar(200) NOT NULL,
+  `sexo` varchar(200) NOT NULL,
+  `estado_civil` varchar(200) NOT NULL,
+  `rg` varchar(50) NOT NULL,
+  `orgao_emissor` varchar(50) DEFAULT NULL,
+  `cpf` varchar(50) NOT NULL,
+  `endereco` text NOT NULL,
+  `numero_endereco` int(11) NOT NULL,
+  `complemento` varchar(100) NOT NULL,
+  `bairro` varchar(100) NOT NULL,
+  `cidade` varchar(100) NOT NULL,
+  `cep` varchar(50) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `telefone` varchar(50) NOT NULL,
+  `escolaridade` varchar(120) NOT NULL,
+  `escola_origem` varchar(250) NOT NULL,
+  `deficiencia` varchar(200) NOT NULL,
+  `empresa` varchar(200) NOT NULL,
+  `curso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `cursos` (
+  `id_curso` int(11) NOT NULL,
+  `nome` varchar(200) NOT NULL,
+  `id_instrutor` int(11) DEFAULT NULL,
+  `carga_horaria` int(11) NOT NULL,
+  `empresa` varchar(300) NOT NULL,
+  `data_inicio` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `cursos`
+  MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `cursos`
+  ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`id_instrutor`) REFERENCES `usuarios` (`cod_usuario`);
+
+ALTER TABLE `matricula`
+  MODIFY `matricula` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `matricula`
+  ADD CONSTRAINT `matricula_ibfk_1` FOREIGN KEY (`matricula`) REFERENCES `cursos` (`id_curso`);
